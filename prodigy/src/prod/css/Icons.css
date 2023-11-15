@@ -1,0 +1,36 @@
+.iconsContent{
+    margin-top: 5%;
+    margin-left: 45%;
+    display: flex;
+}
+.icon1{
+    border: transparent;
+    width: 100px;
+    height: 100px;
+    background-color: #4FD364;
+    cursor: pointer;
+}
+.icon2{
+    border: transparent;
+    width: 100px;
+    height: 100px;
+    background-color: #F74C4A;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.icon3{
+    border: transparent;
+    width: 100px;
+    height: 100px;
+    background-color: #B9B9B9;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.icon4{
+    border: transparent;
+    width: 100px;
+    height: 100px;
+    background-color: #B9B9B9;
+    margin-left: 5px;
+    cursor: pointer;
+}

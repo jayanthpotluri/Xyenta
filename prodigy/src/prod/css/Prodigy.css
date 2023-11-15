@@ -1,0 +1,33 @@
+.testContent{
+    width: 60%;
+    background-color: #FFFF;
+    margin-top: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-left: 20%;
+    
+}
+.categoryContent{
+    background-color: #583FCF;
+    border: 2px solid #583FCF;
+    padding:15px;
+}
+.categoryButton{
+    font-size: 18px;
+    padding:10px;
+    margin-left: 20px;
+    border-radius:4px;
+    cursor: pointer;
+    text-align: left;
+    font-weight: bold;
+    border: transparent;
+}
+.testTextContent{
+    width: 90%;
+    margin-left:5%;
+    padding: 20px;
+    font-family: "Lato", "Trebuchet MS", Roboto, Helvetica, Arial, sans-serif;
+    word-spacing: 0px;
+    color: #444444;
+    text-align: left;
+    line-height: 1.7;
+}

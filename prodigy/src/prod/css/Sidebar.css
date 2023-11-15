@@ -1,0 +1,23 @@
+.sidebarContent{
+    height: 210%;
+    width: 260px;
+    background-color: #54606E;
+}
+.logo{
+    background-color: #384451;
+    padding: 20px;
+}
+.themesLabel, .examplesLabel{
+    color: #b9b9b9;
+    font-weight: bold;
+}
+.examples, .themes{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.projectName, .projectType{
+    color: #b9b9b9;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 10px;
+}

@@ -1,17 +1,10 @@
-/*
-Code status - 
-1. Works with one word - one category
-2. Works with one word - multiple caategories
-3. Works with multiple words - one category
-4. Works with multiple words - multiple categories
-*/
-
 
 import React, { useState, useEffect } from 'react';
+import './css/Test.css';
 const Prodigy = () => {
   const text = 'XYZ Tech Solutions, located at 123 Main Street, Cityville, is a leading company in innovative technology. XYZ Tech Solutions provides cutting-edge solutions for businesses and individuals alike. The companys main office, situated in Cityville, is easily accessible for clients. Additionally, the company has a branch at 456 Tech Avenue, Techlandia, catering to the growing demand in that region. XYZ Tech Solutions is committed to delivering high-quality services and products, making it a top choice for tech enthusiasts. Visit XYZ Tech Solutions today and experience excellence in technology!'  //Initializing value of text
-  const [categories] = useState(['Company', 'Location']); //Array - Initializing value of categories
-  const [selectedCategory, setSelectedCategory] = useState('Company'); // Selected category value based on mouse selection
+  const [categories] = useState(['COMPANY', 'LOCATION']); //Array - Initializing value of categories
+  const [selectedCategory, setSelectedCategory] = useState('COMPANY'); // Selected category value based on mouse selection
   const [words, setWords] = useState([]); //Array - Consists of all the words that were split based on space
   const [selectedWords, setSelectedWords] = useState([]);
   const [lastClicked, setLastClicked] = useState(null); //(removed array) mouseDown value
@@ -180,50 +173,48 @@ const Prodigy = () => {
   }, [lastClicked, selectedWordsArray]);
 
   return (
-    <div>
-      <div 
-      style={{
-        border: '2px solid #000', 
-        marginTop:'10px', 
-        padding:'10px'}}>
-        {categories.map((category) => (
-          <span 
-          key={category} 
-          style={{
-            fontSize:'25px',
-            border: '2px solid #000', 
-            marginRight:'5px',
-            padding:'5px', }}>
-            <input
-              type='radio'
-              name='category'
-              value={category}
-              checked={selectedCategory === category}
-              onChange={() => handleCategoryChange(category)}
-            />
-            {category}
-          </span>
-        ))}
-      </div>
-      <div>
-        {words.map((word) => (
-          <span
-            key={word.id} //The key to each word is the id assigned during split
-            onMouseUp={() => {
-              toggleWordSelection(lastClicked, word.id); // lastclicked and the end word of the drag is sent as parameters
-            }}
-            onMouseDown={() => {
-              setLastClicked(word.id); //id of the first word of the drag is set as lastclicked
-            }}
-            style={{
-              fontSize: '25px',
-              backgroundColor: word.isSelected ? 'orange' : 'transparent', //Highlighted as orange when isSelected is true else transparent
-            }}
-          >
-            {word.text}{' '} {/*Each word that is split based on space is appended with a space*/}
-            {/* <sub>{word.id === lastClicked ? `${word.category.join(', ')} ` : ''}</sub> */}
-          </span>
-        ))}
+    <div className='content'>
+      <div className='testContent'>
+        <div className='categoryContent'>
+          {categories.map((category) => (
+            <span key={category}>
+              <input
+                type='button'
+                name='category'
+                value={category}
+                className='categoryButton'
+                defaultChecked={selectedCategory === category}
+                onClick={() => handleCategoryChange(category)}
+                style={{
+                  backgroundColor: selectedCategory === category ? '#fff' : 'transparent',
+                  color: selectedCategory === category ? '#583FCF' : '#fff',
+                  border: selectedCategory === category ? '1px solid #583FC' : '1px solid #fff',
+                  
+                }}
+              />
+            </span>
+          ))}
+        </div>
+        <div className='testTextContent'>
+          {words.map((word) => (
+            <span
+              key={word.id} //The key to each word is the id assigned during split
+              onMouseUp={() => {
+                toggleWordSelection(lastClicked, word.id); // lastclicked and the end word of the drag is sent as parameters
+              }}
+              onMouseDown={() => {
+                setLastClicked(word.id); //id of the first word of the drag is set as lastclicked
+              }}
+              style={{
+                fontSize: '20px',
+                backgroundColor: word.isSelected ? 'orange' : 'transparent',
+                padding: '5px', // Add this line to set the padding
+              }}>
+              {word.text}{' '} {/*Each word that is split based on space is appended with a space*/}
+              {/* <sub style={{ fontSize: '12px' }}>{word.id === lastClicked ? word.category.join(', ') : ''}</sub> */}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

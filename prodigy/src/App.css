@@ -1,9 +1,17 @@
 /* App.css */
 ::selection {
-  background-color: red;
+  background-color: orange;
 }
 
 /* For older browsers */
 ::-moz-selection {
   background-color: transparent;
+}
+.flexContent{
+  display: flex;
+  
+.App{
+  font-family: "Roboto Condensed", "Arial Narrow", sans-serif;
+  background-color: #F6F6F6;
+}
 }
