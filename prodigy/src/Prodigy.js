@@ -1,3 +1,12 @@
+/*
+Code status - 
+1. Works with one word - one category
+2. Works with one word - multiple caategories
+3. Works with multiple words - one category
+4. Works with multiple words - multiple categories
+*/
+
+
 import React, { useState, useEffect } from 'react';
 const Prodigy = () => {
   const text = 'XYZ Tech Solutions, located at 123 Main Street, Cityville, is a leading company in innovative technology. XYZ Tech Solutions provides cutting-edge solutions for businesses and individuals alike. The companys main office, situated in Cityville, is easily accessible for clients. Additionally, the company has a branch at 456 Tech Avenue, Techlandia, catering to the growing demand in that region. XYZ Tech Solutions is committed to delivering high-quality services and products, making it a top choice for tech enthusiasts. Visit XYZ Tech Solutions today and experience excellence in technology!'  //Initializing value of text
