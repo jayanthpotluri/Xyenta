@@ -1,0 +1,9 @@
+/* App.css */
+::selection {
+  background-color: red;
+}
+
+/* For older browsers */
+::-moz-selection {
+  background-color: transparent;
+}
