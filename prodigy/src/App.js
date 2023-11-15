@@ -1,7 +1,7 @@
-import Prodigy from './prod/Prodigy';
-// import Prodigy from './code/Test';
-import Sidebar from './prod/Sidebar';
-import Icons from './prod/Icons';
+// import Prodigy from './prod/Prodigy';
+import Prodigy from './code/Test';
+import Sidebar from './code/Sidebar';
+import Icons from './code/Icons';
 import './App.css';
 
 function App() {
