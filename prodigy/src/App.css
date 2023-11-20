@@ -9,9 +9,8 @@
 }
 .flexContent{
   display: flex;
-  
+}
 .App{
   font-family: "Roboto Condensed", "Arial Narrow", sans-serif;
   background-color: #F6F6F6;
-}
 }

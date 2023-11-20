@@ -27,18 +27,6 @@ const Sidebar = () => {
                         </select>
                     </form>
                 </div>
-                <hr></hr>
-                <div className='projectDetails'>
-                    <div className='projectName' style={{display:'flex'}}>
-                        <div>DATASET</div>
-                        
-                    </div>
-                    <div className='projectType' style={{display:'flex'}}>
-                        <div>VIEW ID</div>
-                        
-                    </div>
-                </div>
-                <hr></hr>
             </div>
         </div>
     );

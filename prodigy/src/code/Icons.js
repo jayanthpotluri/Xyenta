@@ -1,13 +1,13 @@
 import React from 'react';
 import './css/Icons.css';
 
-const Icons = () =>{
+const Icons = ({callHandleSubmit}) =>{
 
     return(
         <div className='content'>
             <center>
                 <div className='iconsContent'>
-                    <button className='icon1'>
+                    <button className='icon1' onClick={callHandleSubmit}>
                         <svg aria-hidden="true" fill="currentColor" width="40" height="40" viewBox="0 0 24 24" style={{minWidth: '40px'}}>
                             <path d="M9 16.172l10.594-10.594 1.406 1.406-12 12-5.578-5.578 1.406-1.406z"></path>
                         </svg>
