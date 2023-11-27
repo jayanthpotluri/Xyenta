@@ -158,7 +158,7 @@ const Prodigy = ({ lines }) => {
 
   // Function to recognize words based on offset values
   const recognizeWords = () => {
-    const wordsArray = (text ?? '').split(' ').map((word, index) => ({
+    const wordsArray = (text ?? '').replace(/\\n/g, ' \n ').split(' ').map((word, index) => ({
       id: index,
       text: word,
       isSelected: false,
@@ -169,7 +169,7 @@ const Prodigy = ({ lines }) => {
   };
 
   useEffect(() => {
-    setText(JSON.stringify(lines));
+    setText(JSON.stringify(lines).replace(/^"|"$/g, ''));
   }, [lines]);
 
   //Runs once when the prodigy component is rendered
@@ -207,7 +207,7 @@ const Prodigy = ({ lines }) => {
                 onClick={() => handleCategoryChange(category)}
                 style={{
                   backgroundColor: selectedCategory === category ? '#fff' : 'transparent',
-                  color: selectedCategory === category ? '#583FCF' : '#fff',
+                  color: selectedCategory === category ? '#077ea4' : '#fff',
                   border: selectedCategory === category ? '1px solid #583FC' : '1px solid #fff',
                   
                 }}
@@ -218,23 +218,23 @@ const Prodigy = ({ lines }) => {
         <div className='testTextContent'>
           {words.map((word) => (
             <span
-              key={word.id} //The key to each word is the id assigned during split
-              onMouseUp={() => {
-                toggleWordSelection(lastClicked, word.id); // lastclicked and the end word of the drag is sent as parameter
-              }}
-              onMouseDown={() => {
-                setLastClicked(word.id); //id of the first word of the drag is set as lastclicked
-              }}
-              style={{
-                fontSize: '20px',
-                backgroundColor: word.isSelected ? categoryColors[word.category[0]] || 'orange' : 'transparent',
-                padding: '5px', // Add this line to set the padding
-                // whiteSpace: 'pre-wrap', // Add this line to preserve line breaks
-              }}>
-              {/* {word.text}{' '} Each word that is split based on space is appended with a space */}
-              {word.text.replace(/\\n/g, '\n')}{' '}
-              {/* <sub style={{ fontSize: '12px' }}>{word.id === lastClicked ? word.category.join(', ') : ''}</sub> */}
-            </span>
+            key={word.id}
+            onMouseUp={() => {
+              toggleWordSelection(lastClicked, word.id);
+            }}
+            onMouseDown={() => {
+              setLastClicked(word.id);
+            }}
+            style={{
+              fontSize: '20px',
+              backgroundColor: word.isSelected ? categoryColors[word.category[0]] || 'orange' : 'transparent',
+              padding: '5px',
+              whiteSpace: 'pre-wrap', // Add this line to preserve line breaks
+            }}
+          >
+            {word.text}{' '}
+            {/* <sub style={{ fontSize: '12px' }}>{word.id === lastClicked ? word.category.join(', ') : ''}</sub> */}
+          </span>
           ))}
         </div>
       </div>

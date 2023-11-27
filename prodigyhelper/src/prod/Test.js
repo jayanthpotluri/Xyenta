@@ -1,34 +1,14 @@
-/*
-Code status - 
-. Works with one word - one category
-. Works with one word - multiple caategories
-. Works with multiple words - one category
-. Works with multiple words - multiple categories
-. Works with jsonl data for text
-. Works with random colors for categories
-. Doesnot work for unhighlighting the whole sentence when clicked a part of the sentence
-. Doesnot work with mousedrag to the left
-. Doesnot trim the words for "," and "__"
-. Doesnot remove the selection after highlighting
-. Doesnot add subtext
-. Should change word splitting code to trim the spaces and new line characters
-*/
-
-
 
 import React, { useState, useEffect } from 'react';
-import randomColor from 'randomcolor';
 import './css/Test.css';
-import Icons from './Icons';
-const Prodigy = ({ lines }) => {
-  const [text, setText] = useState();
-  const [categories] = useState(['COMPANY', 'LOCATION']);
-  const [selectedCategory, setSelectedCategory] = useState('COMPANY');
-  const [words, setWords] = useState([]);
+const Prodigy = () => {
+  const text = 'XYZ Tech Solutions, located at 123 Main Street, Cityville, is a leading company in innovative technology. XYZ Tech Solutions provides cutting-edge solutions for businesses and individuals alike. The companys main office, situated in Cityville, is easily accessible for clients. Additionally, the company has a branch at 456 Tech Avenue, Techlandia, catering to the growing demand in that region. XYZ Tech Solutions is committed to delivering high-quality services and products, making it a top choice for tech enthusiasts. Visit XYZ Tech Solutions today and experience excellence in technology!'  //Initializing value of text
+  const [categories] = useState(['COMPANY', 'LOCATION']); //Array - Initializing value of categories
+  const [selectedCategory, setSelectedCategory] = useState('COMPANY'); // Selected category value based on mouse selection
+  const [words, setWords] = useState([]); //Array - Consists of all the words that were split based on space
   const [selectedWords, setSelectedWords] = useState([]);
-  const [lastClicked, setLastClicked] = useState(null);
-  const [selectedWordsArray, setSelectedWordsArray] = useState([]);
-  const [categoryColors, setCategoryColors] = useState({});
+  const [lastClicked, setLastClicked] = useState(null); //(removed array) mouseDown value
+  const [selectedWordsArray, setSelectedWordsArray] = useState([]); //Array - Consists of words that are selected, used for forming sentences
 
   const handleCategoryChange = (category) => { //Function - To change category state
     setSelectedCategory(category);
@@ -36,10 +16,6 @@ const Prodigy = ({ lines }) => {
   
   // console.log(words);
   
-  const handleSubmit = () => {
-    
-    console.log("Submitted!!");
-  }
 
   const toggleWordSelection = (lastClicked, wordId) => { //Triggered when mouseUp
     let updatedSelectedWordsArray = [...selectedWordsArray];
@@ -176,7 +152,7 @@ const Prodigy = ({ lines }) => {
 
   // Function to recognize words based on offset values
   const recognizeWords = () => {
-    const wordsArray = (text ?? '').split(' ').map((word, index) => ({
+    const wordsArray = text.split(' ').map((word, index) => ({
       id: index,
       text: word,
       isSelected: false,
@@ -186,29 +162,15 @@ const Prodigy = ({ lines }) => {
     setWords(wordsArray);
   };
 
-  useEffect(() => {
-    setText(JSON.stringify(lines));
-  }, [lines]);
-
   //Runs once when the prodigy component is rendered
   useEffect(() => {
     recognizeWords();
-  }, [text]);
+  }, [recognizeWords]);
 
   //Triggered when lastclicked or selectedWordsArray is changed
   useEffect(() => {
     console.log(selectedWordsArray);
   }, [lastClicked, selectedWordsArray]);
-
-  useEffect(() => {
-    const colors = {};
-    categories.forEach((category) => {
-      colors[category] = randomColor({
-        luminosity:'light',
-      });
-    });
-    setCategoryColors(colors);
-  }, []);
 
   return (
     <div className='content'>
@@ -225,7 +187,7 @@ const Prodigy = ({ lines }) => {
                 onClick={() => handleCategoryChange(category)}
                 style={{
                   backgroundColor: selectedCategory === category ? '#fff' : 'transparent',
-                  color: selectedCategory === category ? '#583FCF' : '#fff',
+                  color: selectedCategory === category ? '#077ea4' : '#fff',
                   border: selectedCategory === category ? '1px solid #583FC' : '1px solid #fff',
                   
                 }}
@@ -238,25 +200,22 @@ const Prodigy = ({ lines }) => {
             <span
               key={word.id} //The key to each word is the id assigned during split
               onMouseUp={() => {
-                toggleWordSelection(lastClicked, word.id); // lastclicked and the end word of the drag is sent as parameter
+                toggleWordSelection(lastClicked, word.id); // lastclicked and the end word of the drag is sent as parameters
               }}
               onMouseDown={() => {
                 setLastClicked(word.id); //id of the first word of the drag is set as lastclicked
               }}
               style={{
                 fontSize: '20px',
-                backgroundColor: word.isSelected ? categoryColors[word.category[0]] || 'orange' : 'transparent',
+                backgroundColor: word.isSelected ? 'orange' : 'transparent',
                 padding: '5px', // Add this line to set the padding
-                // whiteSpace: 'pre-wrap', // Add this line to preserve line breaks
               }}>
-              {/* {word.text}{' '} Each word that is split based on space is appended with a space */}
-              {word.text.replace(/\\n/g, '\n')}{' '}
+              {word.text}{' '} {/*Each word that is split based on space is appended with a space*/}
               {/* <sub style={{ fontSize: '12px' }}>{word.id === lastClicked ? word.category.join(', ') : ''}</sub> */}
             </span>
           ))}
         </div>
       </div>
-      <Icons callHandleSubmit={handleSubmit} />
     </div>
   );
 };

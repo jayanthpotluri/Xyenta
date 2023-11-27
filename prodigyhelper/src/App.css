@@ -1,6 +1,5 @@
-/* App.css */
 ::selection {
-  background-color: orange;
+  background-color: transparent;
 }
 
 /* For older browsers */

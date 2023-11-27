@@ -1,14 +1,15 @@
 .testContent{
-    width: 50%;
+    width: 60%;
     background-color: #FFFF;
-    margin-top: 10%;
+    margin-top: 5%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-left: 25%;
+    margin-left: 20%;
     
 }
+
 .categoryContent{
-    background-color: #583FCF;
-    border: 2px solid #583FCF;
+    background-color: #077ea4;
+    border: 2px solid #077ea4;
     padding:15px;
 }
 .categoryButton{

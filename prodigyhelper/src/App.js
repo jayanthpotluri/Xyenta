@@ -1,7 +1,7 @@
 import Prodigy from './prod/Prodigy';
 // import Prodigy from './code/Test';
+// import ProdigyImage from './code/ProdigyImage';
 import Sidebar from './code/Sidebar';
-import Icons from './code/Icons';
 import './App.css';
 import React, { useState, useEffect } from 'react';
 
@@ -38,7 +38,7 @@ function App() {
     <div className="App">
       <div className='flexContent'>
         <Sidebar></Sidebar>
-        <Prodigy lines={lines} />
+        <Prodigy lines={lines} /> 
       </div>
       {/* <Icons></Icons> */}
     </div>
