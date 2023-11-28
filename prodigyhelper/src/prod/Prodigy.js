@@ -19,8 +19,9 @@ import randomColor from 'randomcolor';
 import './css/Prodigy.css';
 import Icons from './Icons';
 const categories = ['COMPANY', 'LOCATION'];
+const anotherArray = [];
 
-const Prodigy = ({ lines }) => {
+const Prodigy = () => {
   const [text, setText] = useState();
   const [selectedCategory, setSelectedCategory] = useState('COMPANY');
   const [words, setWords] = useState([]);
@@ -28,6 +29,54 @@ const Prodigy = ({ lines }) => {
   const [lastClicked, setLastClicked] = useState(null);
   const [selectedWordsArray, setSelectedWordsArray] = useState([]);
   const [categoryColors, setCategoryColors] = useState({});
+  const [lines, setLines] = useState([]);
+  const [textValue, setTextValue] = useState(0);
+  const [appendedArray, setAppendedArray] = useState([]);
+
+  //triggered when next button is clicked
+  const updateTextValue = (newValue) => {
+    if (textValue >= 0) {
+      setTextValue(textValue + newValue);
+    } else {
+      setTextValue(textValue + 0);
+    }
+  
+    // Append selectedWordsArray to another array
+    if (selectedWordsArray.length > 0) {
+      setAppendedArray([...appendedArray, selectedWordsArray]);
+    }
+  
+    // Create a null selectedWordsArray
+    setSelectedWordsArray([]);
+  };
+
+  //Triggered when text value is changed
+  useEffect(() => 
+  {
+    console.log('AppendedArray:', appendedArray);
+    const fetchData = async () => {
+      try 
+      {
+        // Fetch JSONL file
+        const response = await fetch('/prodigy.jsonl');
+        if (!response.ok) 
+        {
+          throw new Error(`Failed to fetch data.jsonl (${response.status} ${response.statusText})`);
+        }
+        // Read JSONL data as text
+        const jsonlData = await response.text();
+        const lines = jsonlData.split('\n').map(line => JSON.parse(line));
+        // console.log(lines[0].text);
+        setLines(lines[textValue].text);
+        // Log JSONL data to the console
+        // console.log('JSONL Data:', jsonlData);
+      } catch (error) {
+        console.error('Error fetching JSONL data:', error.message);
+      }
+    };
+
+    fetchData();
+  }, [textValue]);
 
   //Function - To change category state
   const handleCategoryChange = (category) => { 
@@ -35,13 +84,13 @@ const Prodigy = ({ lines }) => {
   };
 
   // console.log(words);
-
+  
+  //Triggered when next button is clicked
   const handleSubmit = () => {
     // Save selectedWordsArray in browser storage
     localStorage.setItem('selectedWordsArray', JSON.stringify(selectedWordsArray));
-    console.log("Submitted!!");
     const savedSelectedWordsArray = JSON.parse(localStorage.getItem('selectedWordsArray'));
-    console.log(savedSelectedWordsArray);
+    console.log('localStorage:', savedSelectedWordsArray);
   }
 
   //Triggered when mouseUp
@@ -191,7 +240,9 @@ const Prodigy = ({ lines }) => {
   }, []);
 
   return (
+    
     <div className='content'>
+      <Icons updateStateValue={updateTextValue} callHandleSubmit={handleSubmit} />
       <div className='testContent'>
         <div className='categoryContent'>
           {categories.map((category) => (
@@ -261,7 +312,7 @@ const Prodigy = ({ lines }) => {
           ))}
         </div>
       </div>
-      {/* <Icons callHandleSubmit={handleSubmit} /> */}
+      
     </div>
   );
 };
