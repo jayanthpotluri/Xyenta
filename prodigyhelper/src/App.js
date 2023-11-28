@@ -1,12 +1,17 @@
 import Prodigy from './prod/Prodigy';
-// import Prodigy from './code/Test';
-// import ProdigyImage from './code/ProdigyImage';
+import Icons from './prod/Icons';
 import Sidebar from './code/Sidebar';
 import './App.css';
 import React, { useState, useEffect } from 'react';
 
 function App() {
   const [lines, setLines] = useState([]);
+  const [textValue, setTextValue] = useState(0);
+
+  const updateStateValue = (newValue) => {
+    setTextValue(textValue + newValue);
+  };
+
   useEffect(() => 
   {
     const fetchData = async () => {
@@ -22,7 +27,7 @@ function App() {
         const jsonlData = await response.text();
         const lines = jsonlData.split('\n').map(line => JSON.parse(line));
         // console.log(lines[0].text);
-        setLines(lines[0].text);
+        setLines(lines[textValue].text);
         // Log JSONL data to the console
         // console.log('JSONL Data:', jsonlData);
       } catch (error) {
@@ -31,7 +36,7 @@ function App() {
     };
 
     fetchData();
-  }, []);
+  }, [textValue]);
 
 
   return (
@@ -39,6 +44,8 @@ function App() {
       <div className='flexContent'>
         <Sidebar></Sidebar>
         <Prodigy lines={lines} /> 
+        
+        <Icons updateStateValue={updateStateValue} />
       </div>
       {/* <Icons></Icons> */}
     </div>

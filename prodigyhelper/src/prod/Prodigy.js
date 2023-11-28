@@ -130,7 +130,7 @@ const Prodigy = ({ lines }) => {
 
         return prevSelectedWordsArray;
       } else {
-        
+
         // Add the element only if isSelected is true
         if (updatedCategory.length > 0) {
           return [
@@ -229,15 +229,39 @@ const Prodigy = ({ lines }) => {
                 whiteSpace: 'pre-wrap',
               }}
             >
-              {word.text}{' '}
-              <sub style={{ fontSize: '12px', cursor: 'pointer' }}>
-                {word.category.join(', ')}
-              </sub>
+              <span 
+              style={{
+               fontWeight: word.isSelected ? '900' : '',
+              }}>
+                {word.text}{' '}
+
+                {/* <span style={{
+                  borderBottom: word.isSelected? '4px solid black': '',
+                  position:'absolute',
+                  width:'25px',
+                  marginLeft:'-70px',
+                  marginTop:'39px'
+                  }}>{}
+                </span> */}
+
+                {/* <span style={{ 
+                  fontSize: '10px', 
+                  cursor: 'pointer',
+                  position:'absolute',
+                  backgroundColor: categoryColors[word.category[0]],
+                  marginTop:'30px',
+                  marginLeft:'-45px',
+                  padding:'1px',
+                  }}>
+                  {word.category.join('\n')}
+                </span> */}
+              </span>
+              
             </span>
           ))}
         </div>
       </div>
-      <Icons callHandleSubmit={handleSubmit} />
+      {/* <Icons callHandleSubmit={handleSubmit} /> */}
     </div>
   );
 };
