@@ -1,11 +1,11 @@
 import React from 'react';
 import './css/Icons.css';
 
-const Icons = ({updateStateValue, callHandleSubmit}) =>{
+const Icons = ({updateNextStateValue, callHandleSubmit, updateBackStateValue}) =>{
 
     const handleNextClick = () => {
         // Call the function passed from the parent to update its state
-        updateStateValue(1);
+        updateNextStateValue(1);
       };
 
       const handleRejectClick = () => {
@@ -17,7 +17,7 @@ const Icons = ({updateStateValue, callHandleSubmit}) =>{
       };
 
       const handleBackClick = () => {
-        updateStateValue(-1);
+        updateBackStateValue(-1);
       };
 
     return(

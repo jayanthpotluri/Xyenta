@@ -8,6 +8,7 @@ Code status -
 . Works with random colors for categories
 . Works with newline characters
 . Works with subtext but adds it to all the words
+. Works with changing the text lines upon button click
 . Doesnot work for unhighlighting the whole sentence when clicked a part of the sentence
 . Doesnot work with mousedrag to the left
 . Doesnot trim the words for "," and "__"
@@ -30,30 +31,62 @@ const Prodigy = () => {
   const [selectedWordsArray, setSelectedWordsArray] = useState([]);
   const [categoryColors, setCategoryColors] = useState({});
   const [lines, setLines] = useState([]);
+  const [textLength, setTextLength] = useState();
   const [textValue, setTextValue] = useState(0);
   const [appendedArray, setAppendedArray] = useState([]);
 
+  useEffect(() => {
+    console.log('textvalue:',textValue, 'appendedArray:', appendedArray, 'selectedwordsarray:',selectedWordsArray);
+
+  }, [textValue, appendedArray, selectedWordsArray]);
+
   //triggered when next button is clicked
-  const updateTextValue = (newValue) => {
-    if (textValue >= 0) {
-      setTextValue(textValue + newValue);
-    } else {
-      setTextValue(textValue + 0);
+  const updateNextTextValue = (newValue) => {
+    if(textValue < 0){
+      setTextValue(0);
+    }
+    else if(textValue > textLength-1){
+      window.alert('End of json data');
+      setTextValue(textLength-1);
+    }
+    else{
+      setTextValue(textValue+newValue);
     }
   
     // Append selectedWordsArray to another array
     if (selectedWordsArray.length > 0) {
-      setAppendedArray([...appendedArray, selectedWordsArray]);
+      const updatedAppendedArray = [...appendedArray];
+      updatedAppendedArray[textValue] = null; // Set updatedAppendedArray[textValue] as null
+      updatedAppendedArray[textValue] = [...selectedWordsArray]; // Assign selectedWordsArray to updatedAppendedArray[textValue]
+      setAppendedArray(updatedAppendedArray);
     }
   
     // Create a null selectedWordsArray
     setSelectedWordsArray([]);
+    // console.log(textValue, appendedArray[textValue]);
   };
 
+  const updateBackTextValue = (newValue) => {
+    if(textValue < 0){
+      setTextValue(0);
+    }
+    else if(textValue > textLength-1){
+      setTextValue(textLength-1);
+    }
+    else{
+      setTextValue(textValue+newValue);
+    }
+
+    if (appendedArray[textValue-1]) {
+      setSelectedWordsArray([...appendedArray[textValue-1]]);
+      // console.log(appendedArray[textValue-1]);
+    }
+    
+  };
   //Triggered when text value is changed
   useEffect(() => 
   {
-    console.log('AppendedArray:', appendedArray);
+    // console.log('AppendedArray:', appendedArray);
     const fetchData = async () => {
       try 
       {
@@ -68,6 +101,7 @@ const Prodigy = () => {
         const lines = jsonlData.split('\n').map(line => JSON.parse(line));
         // console.log(lines[0].text);
         setLines(lines[textValue].text);
+        setTextLength(lines.length);
         // Log JSONL data to the console
         // console.log('JSONL Data:', jsonlData);
       } catch (error) {
@@ -90,7 +124,7 @@ const Prodigy = () => {
     // Save selectedWordsArray in browser storage
     localStorage.setItem('selectedWordsArray', JSON.stringify(selectedWordsArray));
     const savedSelectedWordsArray = JSON.parse(localStorage.getItem('selectedWordsArray'));
-    console.log('localStorage:', savedSelectedWordsArray);
+    // console.log('localStorage:', savedSelectedWordsArray);
   }
 
   //Triggered when mouseUp
@@ -242,7 +276,7 @@ const Prodigy = () => {
   return (
     
     <div className='content'>
-      <Icons updateStateValue={updateTextValue} callHandleSubmit={handleSubmit} />
+      <Icons updateNextStateValue={updateNextTextValue} callHandleSubmit={handleSubmit} updateBackStateValue={updateBackTextValue} />
       <div className='testContent'>
         <div className='categoryContent'>
           {categories.map((category) => (
